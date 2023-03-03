@@ -31,13 +31,15 @@ class BST:
                     prev = start
                     start = start.right
             #เชื่อมโหนด pNew
-
-            prev.right = pNew
-
+            if (prev.right == start):
+                prev.right = pNew
+            else:
+                prev.left = pNew
 
     def delete(self, data) :
-        #// delete data from BST
+        """delete data from BST"""
         return
+
     def preorder(self, root) :
         if (root != None):
             print("->", root.data, end=" ")
@@ -68,16 +70,32 @@ class BST:
             self.postorder(self.root)
 
     def findMin(self) :
-        #// return minimum value
-        return
+        """return minimum value"""
+        start = self.root
+        if self.is_empty():
+            return None
+        else:
+            while start.left != None:
+                start = start.left
+        return start.data
+
     def findMax(self) :
-        #// return maximum value
-        return
+        """return maximum value"""
+        start = self.root
+        if self.is_empty():
+            return None
+        else:
+            while start.right != None:
+                start = start.right
+        return start.data
 
 
 myBST = BST()
+myBST.insert(14)
+myBST.insert(23)
+myBST.insert(7)
 myBST.insert(10)
-myBST.insert(15)
-myBST.insert(25)
-myBST.insert(35)
+myBST.insert(33)
 myBST.traverse()
+print("Min:", myBST.findMin())
+print("Max:", myBST.findMax())
