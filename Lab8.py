@@ -17,12 +17,12 @@ class ProbHash:
         id_stu = student_obj.getId()
         key = self.hashFunction(id_stu)
         if self.hashtable[key] == None:
-            self.hashtable[key] == student_obj
+            self.hashtable[key] = student_obj
             print("insert %s at index %d"%(id_stu, key))
             return
         else:
             count = 0
-            while self.hashtable[key] != None and count <= self.n:
+            while (self.hashtable[key] != None) and (count <= self.n):
                 key = self.rehashFuntion(key)
                 count += 1
             if count <= self.n:
@@ -42,13 +42,13 @@ class ProbHash:
                 while self.hashtable[index] != None and count <= self.n:
                     index = self.rehashFuntion(index)
                     if self.hashtable[index] is None:
-                        print("%d does not exist."%index)
+                        print("%s does not exist."%key)
                         return
                     elif self.hashtable[index].id == key:
                         print("Found %s at index %d"%(key, index))
                         return self.hashtable[index]
                     count += 1
-        print("%d does not exist."%index)
+        print("%s does not exist."%key)
 
 
 class Student:
@@ -80,6 +80,7 @@ myHash.insertData(s1)
 myHash.insertData(s2)
 myHash.insertData(s3)
 myHash.insertData(s4)
+print("")
 std = myHash.searchData(65070077)
 std.printDetails()
 print("-------------------------")
