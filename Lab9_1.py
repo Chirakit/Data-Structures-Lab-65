@@ -3,11 +3,11 @@
 def insertionSort(list, last):
     current = 1
     comparison = 0
-    while (current <= last):
+    while current <= last:
         hold = list[current]
         walker = current - 1
         comparison += 1
-        while (walker >= 0 and hold < list[walker]):
+        while walker >= 0 and hold < list[walker]:
             list[walker + 1] = list[walker]
             walker -= 1
             comparison += 1
