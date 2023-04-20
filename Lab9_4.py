@@ -1,55 +1,49 @@
 """Lab9.4 Sorting For Playing Cards by Chirakit Marachchalee"""
 
-def insertionSort(list, last):
-    current = 1
+def insertionSort(deck, last):
+    current = 0
     comparison = 0
-    while current <= last:
-        hold = list[current]
-        walker = current - 1
+    for i in range(1, last+1):
+        current = deck[i]
+        walker = i - 1
         comparison += 1
-        while walker >= 0 and hold < list[walker]:
-            list[walker + 1] = list[walker]
+        while walker >= 0 and cardInfo(deck[walker]) > cardInfo(current):
+            deck[walker + 1] = deck[walker]
             walker -= 1
             comparison += 1
-        list[walker + 1] = hold
-        current += 1
+        deck[walker + 1] = current
         if walker < 0:
             comparison -= 1
-        print(list)
+        print(deck)
     print("Comparison times:", comparison)
 
-def selectionSort(list, last):
-    current = 0
+def selectionSort(deck, last):
     comparison = 0
-    while current <= last:
-        smallest = current
-        walker = current + 1
-        while walker <= last:
-            if list[walker] < list[smallest]:
+    for i in range(last):
+        smallest = i
+        for walker in range(i+1, last+1):
+            if cardInfo(deck[walker]) < cardInfo(deck[smallest]):
                 smallest = walker
-            walker += 1
             comparison += 1
-        list[current], list[smallest] = list[smallest], list[current]
-        current += 1
-        print(list)
+        deck[i], deck[smallest] = deck[smallest], deck[i]
+        print(deck)
     print("Comparison times:", comparison)
 
-def bubbleSort(list, last):
-    current = 0
-    sorted = False
+def bubbleSort(deck, last):
     comparison = 0
-    while (current <= last) and (sorted is False):
-        walker = last
-        sorted = True
-        while walker > current:
+    for i in range(last):
+        for walker in range(last-i):
             comparison += 1
-            if list[walker] < list[walker - 1]:
-                sorted = False
-                list[walker], list[walker - 1] = list[walker - 1], list[walker]
-            walker -= 1
-        current += 1
-        print(list)
+            if cardInfo(deck[walker]) > cardInfo(deck[walker + 1]):
+                deck[walker], deck[walker + 1] = deck[walker + 1], deck[walker]
+        print(deck)
     print("Comparison times:", comparison)
 
-insertionSort(['4♣', 'A♣', '10♥', 'K♦', '4♠', '10♣', '3♦', '7♥', '4♦'], 8)
-#♣ < ♦ < ♥ < ♠
+def cardInfo(card):
+    frontCard = {"2": 1, "3": 2, "4": 3, "5": 4, "6": 5, "7": 6, "8": 7, "9": 8, "10": 9, "J": 10, "Q": 11, "K": 12, "A": 13}
+    patternCard = {"♣": 0, "♦": 1, "♥": 2, "♠": 3}#♣ < ♦ < ♥ < ♠
+    return (frontCard[card[:-1]], patternCard[card[-1]])
+
+#insertionSort(['4♣', 'A♣', '10♥', 'K♦', '4♠', '10♣', '3♦', '7♥', '4♦'], 8)
+#selectionSort(['4♣', 'A♣', '10♥', 'K♦', '4♠', '10♣', '3♦', '7♥', '4♦'], 8)
+#bubbleSort(['4♣', 'A♣', '10♥', 'K♦', '4♠', '10♣', '3♦', '7♥', '4♦'], 8)
